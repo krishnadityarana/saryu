@@ -1,119 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Catch My Love ❤️</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>For Saryu ❤️</title>
 
 <style>
 
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
-    overflow:hidden;
-    background:linear-gradient(135deg,#ff8fc2,#ff5e9c);
-    font-family:Arial,sans-serif;
-    text-align:center;
+    font-family:Georgia, serif;
+    background:linear-gradient(to bottom,#050816,#0d1b2a,#000);
     color:white;
+    overflow-x:hidden;
+    min-height:100vh;
+    text-align:center;
+}
+
+#stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle infinite;
+}
+
+@keyframes twinkle{
+    0%,100%{
+        opacity:0.2;
+    }
+    50%{
+        opacity:1;
+    }
+}
+
+.container{
+    padding:40px 20px;
 }
 
 h1{
-    margin-top:20px;
+    margin-top:40px;
+    font-size:42px;
 }
 
-#score{
-    font-size:24px;
-    margin-top:10px;
+.subtitle{
+    opacity:0.8;
+    margin-bottom:50px;
 }
 
-#note{
-    margin-top:10px;
-    font-size:18px;
-    min-height:30px;
+.letter{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;
+    padding:20px;
+    margin:20px auto;
+    width:90%;
+    max-width:600px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-#player{
-    position:absolute;
-    bottom:30px;
-    left:45%;
-    font-size:55px;
-    transition:0.05s;
+.letter:hover{
+    transform:scale(1.03);
 }
 
-.heart{
-    position:absolute;
-    top:-50px;
-    font-size:40px;
-    animation:fall linear forwards;
-}
-
-@keyframes fall{
-    to{
-        transform:translateY(110vh);
-    }
-}
-
-#messageBox{
+.message{
     display:none;
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:85%;
-    background:rgba(255,255,255,0.2);
-    backdrop-filter:blur(15px);
-    border-radius:25px;
-    padding:30px;
-    animation:pop 1s;
-    z-index:20;
+    margin-top:20px;
+    line-height:1.8;
+    opacity:0.9;
 }
 
-@keyframes pop{
+.photo{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid white;
+    margin-top:30px;
+    box-shadow:0 0 25px rgba(255,255,255,0.4);
+}
+
+#final{
+    display:none;
+    margin-top:50px;
+    animation:fadeIn 2s;
+}
+
+@keyframes fadeIn{
     from{
         opacity:0;
-        transform:translate(-50%,-50%) scale(0.7);
     }
     to{
         opacity:1;
-        transform:translate(-50%,-50%) scale(1);
     }
-}
-
-#loveBtn{
-    margin-top:20px;
-    padding:14px 22px;
-    border:none;
-    border-radius:30px;
-    background:white;
-    color:#ff4d8d;
-    font-size:18px;
 }
 
 #musicBtn{
-    position:absolute;
+    position:fixed;
     top:20px;
     right:20px;
     border:none;
-    border-radius:25px;
-    padding:10px 18px;
-    background:rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.15);
     color:white;
+    padding:12px 20px;
+    border-radius:30px;
 }
 
-.confetti{
-    position:absolute;
-    font-size:25px;
-    animation:confetti 4s linear forwards;
-}
-
-@keyframes confetti{
-    from{
-        transform:translateY(-100px);
-        opacity:1;
-    }
-    to{
-        transform:translateY(110vh);
-        opacity:0;
-    }
+.finalText{
+    font-size:24px;
+    margin-top:30px;
+    line-height:1.7;
 }
 
 </style>
@@ -121,190 +134,158 @@ h1{
 
 <body>
 
-<h1>💖 Catch My Love 💖</h1>
-<div id="score">Hearts: 0 / 15</div>
-<div id="note"></div>
+<div id="stars"></div>
 
 <button id="musicBtn">
-🎵 Music
+🎵 Play Music
 </button>
 
-<div id="player">🧸</div>
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
 
-<div id="messageBox">
+<div class="container">
 
-<h2>For My Favorite Person ❤️</h2>
+<h1>For Saryu ❤️</h1>
 
-<p>
-I know today hasn't been the easiest.
-
-But I need you to remember something.
-
-You mean so much to me.
-
-You make my days brighter, my worries lighter,
-and my life infinitely happier.
-
-I love you more than words can explain.
-
-No matter what happens,
-I'm here,
-I'm staying,
-and I'm going to keep choosing you.
-
-Always. ❤️
+<p class="subtitle">
+Some letters are meant to be opened only when you need them.
 </p>
 
-<button id="loveBtn">
-I Love You Too ❤️
-</button>
+<div class="letter" onclick="toggle(0)">
+💌 Open when you're sad
+<div class="message">
+Bad days don't change how loved you are.
+You don't always have to be okay.
+And you definitely don't have to go through it alone.
+I'm here. ❤️
+</div>
+</div>
+
+<div class="letter" onclick="toggle(1)">
+💌 Open when you need reassurance
+<div class="message">
+You mean so much more to me than you realize.
+Nothing about today changes that.
+Nothing about tomorrow will either.
+I'm staying. ❤️
+</div>
+</div>
+
+<div class="letter" onclick="toggle(2)">
+💌 Open when you miss me
+<div class="message">
+Pretend this is a big warm hug.
+Until I can give you one in person,
+here's a thousand tiny virtual ones. 🤗❤️
+</div>
+</div>
+
+<div class="letter" onclick="toggle(3)">
+💌 Open when you forget how much I love you
+<div class="message">
+You are loved.
+You are appreciated.
+You are important.
+
+And if I had to choose all over again,
+I'd still choose you.
+Every single time. ❤️
+</div>
+</div>
+
+<div class="letter" onclick="showFinal()">
+🌙 Open on difficult days
+</div>
+
+<div id="final">
+
+<img src="saryu_child.jpg" class="photo">
+<p>🥺 Little Saryu</p>
+
+<img src="saryu_now.jpg" class="photo">
+<p>❤️ Still the same beautiful soul</p>
+
+<div class="finalText">
+I know some days are heavier than others.
+<br><br>
+
+You are loved more than you know.
+You are appreciated more than you realize.
+And you mean more to me than I could ever put into words.
+<br><br>
+
+No matter what today looks like,
+I'm here.
+I'm staying.
+<br><br>
+
+And in every version of life,
+I'd still choose you.
+❤️
+</div>
 
 </div>
 
-<audio id="music" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8d9c7f6fd.mp3?filename=beautiful-relaxing-music-14437.mp3" type="audio/mpeg">
-</audio>
+</div>
 
 <script>
 
-const notes = [
-"You're my favorite notification ❤️",
-"I'm proud of you 💖",
-"You make my world brighter ✨",
-"Thank you for existing 🌸",
-"You are deeply loved ❤️",
-"I'm always on your team 💕",
-"You matter so much to me 🥰",
-"You make ordinary days special 💖"
-];
+for(let i=0;i<200;i++){
 
-const player=document.getElementById('player');
-const score=document.getElementById('score');
-const note=document.getElementById('note');
-const messageBox=document.getElementById('messageBox');
+    const star=document.createElement("div");
 
-let count=0;
+    star.classList.add("star");
 
-document.addEventListener('mousemove',(e)=>{
-    player.style.left=e.clientX+'px';
-});
+    star.style.left=
+        Math.random()*100+"vw";
 
-document.addEventListener('touchmove',(e)=>{
-    player.style.left=e.touches[0].clientX+'px';
-});
+    star.style.top=
+        Math.random()*100+"vh";
 
-function createHeart(){
+    star.style.animationDuration=
+        (2+Math.random()*5)+"s";
 
-    const heart=document.createElement('div');
-    heart.classList.add('heart');
-    heart.innerHTML='💖';
-
-    heart.style.left=
-        Math.random()*window.innerWidth+'px';
-
-    heart.style.animationDuration=
-        (2+Math.random()*2)+'s';
-
-    document.body.appendChild(heart);
-
-    const check=setInterval(()=>{
-
-        const h=heart.getBoundingClientRect();
-        const p=player.getBoundingClientRect();
-
-        if(
-            h.bottom>=p.top &&
-            h.left<p.right &&
-            h.right>p.left
-        ){
-
-            count++;
-
-            score.innerHTML=
-            `Hearts: ${count} / 15`;
-
-            note.innerHTML=
-            notes[Math.floor(Math.random()*notes.length)];
-
-            heart.remove();
-            clearInterval(check);
-
-            if(count>=15){
-                endGame();
-            }
-        }
-
-        if(h.top>window.innerHeight){
-            heart.remove();
-            clearInterval(check);
-        }
-
-    },50);
+    document.getElementById("stars")
+        .appendChild(star);
 }
 
-const game=
-setInterval(createHeart,700);
+function toggle(index){
 
-function endGame(){
+    const messages=
+        document.querySelectorAll(".message");
 
-    clearInterval(game);
+    const m=messages[index];
 
-    document
-    .querySelectorAll('.heart')
-    .forEach(h=>h.remove());
-
-    messageBox.style.display='block';
-
-    makeConfetti();
-}
-
-function makeConfetti(){
-
-    for(let i=0;i<80;i++){
-
-        const c=document.createElement('div');
-
-        c.classList.add('confetti');
-        c.innerHTML='💖';
-
-        c.style.left=
-        Math.random()*window.innerWidth+'px';
-
-        c.style.animationDuration=
-        (2+Math.random()*3)+'s';
-
-        document.body.appendChild(c);
+    if(m.style.display==="block"){
+        m.style.display="none";
+    }
+    else{
+        m.style.display="block";
     }
 }
 
-document
-.getElementById('loveBtn')
-.addEventListener('click',()=>{
+function showFinal(){
+    document.getElementById("final")
+        .style.display="block";
 
-    for(let i=0;i<150;i++){
-
-        const c=document.createElement('div');
-
-        c.classList.add('confetti');
-        c.innerHTML='❤️';
-
-        c.style.left=
-        Math.random()*window.innerWidth+'px';
-
-        c.style.animationDuration=
-        (2+Math.random()*2)+'s';
-
-        document.body.appendChild(c);
-    }
-});
+    window.scrollTo({
+        top:document.body.scrollHeight,
+        behavior:"smooth"
+    });
+}
 
 document
-.getElementById('musicBtn')
-.addEventListener('click',()=>{
+.getElementById("musicBtn")
+.addEventListener("click",()=>{
 
-    document
-    .getElementById('music')
-    .play();
+    const music=
+        document.getElementById("music");
+
+    music.play();
+
+    document.getElementById("musicBtn")
+        .innerHTML="✨ Music Playing";
 });
 
 </script>
