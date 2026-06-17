@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Catch My Love ❤️</title>
 
 <style>
@@ -11,8 +10,8 @@
 body{
     margin:0;
     overflow:hidden;
-    background:linear-gradient(135deg,#ff8db5,#ff5c9a);
-    font-family:Arial;
+    background:linear-gradient(135deg,#ff8fc2,#ff5e9c);
+    font-family:Arial,sans-serif;
     text-align:center;
     color:white;
 }
@@ -23,12 +22,13 @@ h1{
 
 #score{
     font-size:24px;
+    margin-top:10px;
 }
 
 #note{
-    height:35px;
     margin-top:10px;
     font-size:18px;
+    min-height:30px;
 }
 
 #player{
@@ -36,6 +36,7 @@ h1{
     bottom:30px;
     left:45%;
     font-size:55px;
+    transition:0.05s;
 }
 
 .heart{
@@ -58,56 +59,49 @@ h1{
     left:50%;
     transform:translate(-50%,-50%);
     width:85%;
-    max-height:85vh;
-    overflow:auto;
     background:rgba(255,255,255,0.2);
-    backdrop-filter:blur(12px);
-    padding:25px;
+    backdrop-filter:blur(15px);
     border-radius:25px;
+    padding:30px;
+    animation:pop 1s;
+    z-index:20;
 }
 
-.memoryPhoto{
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    object-fit:cover;
-    border:5px solid white;
-    margin-top:20px;
-    box-shadow:0 0 25px rgba(255,255,255,0.5);
-    animation:float 3s infinite;
-}
-
-@keyframes float{
-    0%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
-    100%{transform:translateY(0);}
-}
-
-.photoCaption{
-    font-size:18px;
-    margin-bottom:20px;
+@keyframes pop{
+    from{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(0.7);
+    }
+    to{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
 }
 
 #loveBtn{
-    padding:15px 25px;
+    margin-top:20px;
+    padding:14px 22px;
     border:none;
     border-radius:30px;
     background:white;
     color:#ff4d8d;
     font-size:18px;
-    margin-top:20px;
 }
 
-#finalLove{
-    display:none;
-    margin-top:25px;
-    font-size:26px;
-    font-weight:bold;
+#musicBtn{
+    position:absolute;
+    top:20px;
+    right:20px;
+    border:none;
+    border-radius:25px;
+    padding:10px 18px;
+    background:rgba(255,255,255,0.2);
+    color:white;
 }
 
 .confetti{
     position:absolute;
-    font-size:28px;
+    font-size:25px;
     animation:confetti 4s linear forwards;
 }
 
@@ -128,30 +122,18 @@ h1{
 <body>
 
 <h1>💖 Catch My Love 💖</h1>
-
-<div id="score">
-Hearts: 0 / 15
-</div>
-
+<div id="score">Hearts: 0 / 15</div>
 <div id="note"></div>
 
-<div id="player">
-🧸
-</div>
+<button id="musicBtn">
+🎵 Music
+</button>
+
+<div id="player">🧸</div>
 
 <div id="messageBox">
 
-<img src="saryu_child.jpg" class="memoryPhoto">
-
-<div class="photoCaption">
-🥺 Little Saryu
-</div>
-
-<img src="saryu_now.jpg" class="memoryPhoto">
-
-<div class="photoCaption">
-❤️ Still the same adorable chaos
-</div>
+<h2>For My Favorite Person ❤️</h2>
 
 <p>
 I know today hasn't been the easiest.
@@ -160,9 +142,10 @@ But I need you to remember something.
 
 You mean so much to me.
 
-You make my days brighter,
-my worries lighter,
+You make my days brighter, my worries lighter,
 and my life infinitely happier.
+
+I love you more than words can explain.
 
 No matter what happens,
 I'm here,
@@ -176,52 +159,51 @@ Always. ❤️
 I Love You Too ❤️
 </button>
 
-<div id="finalLove">
-✨ Thank you for being my safe place. ✨
-<br><br>
-❤️ I love you, Saryu ❤️
 </div>
 
-</div>
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8d9c7f6fd.mp3?filename=beautiful-relaxing-music-14437.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
-const notes=[
-"You're my favorite person ❤️",
+const notes = [
+"You're my favorite notification ❤️",
 "I'm proud of you 💖",
-"You are deeply loved ❤️",
 "You make my world brighter ✨",
-"I'm always on your team 🥰",
-"You matter so much to me 💕"
+"Thank you for existing 🌸",
+"You are deeply loved ❤️",
+"I'm always on your team 💕",
+"You matter so much to me 🥰",
+"You make ordinary days special 💖"
 ];
 
-const player=document.getElementById("player");
-const score=document.getElementById("score");
-const note=document.getElementById("note");
-const messageBox=document.getElementById("messageBox");
+const player=document.getElementById('player');
+const score=document.getElementById('score');
+const note=document.getElementById('note');
+const messageBox=document.getElementById('messageBox');
 
 let count=0;
 
-document.addEventListener("mousemove",e=>{
-    player.style.left=e.clientX+"px";
+document.addEventListener('mousemove',(e)=>{
+    player.style.left=e.clientX+'px';
 });
 
-document.addEventListener("touchmove",e=>{
-    player.style.left=e.touches[0].clientX+"px";
+document.addEventListener('touchmove',(e)=>{
+    player.style.left=e.touches[0].clientX+'px';
 });
 
 function createHeart(){
 
-    const heart=document.createElement("div");
-
-    heart.classList.add("heart");
-    heart.innerHTML="💖";
+    const heart=document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML='💖';
 
     heart.style.left=
-        Math.random()*window.innerWidth+"px";
+        Math.random()*window.innerWidth+'px';
 
     heart.style.animationDuration=
-        (2+Math.random()*2)+"s";
+        (2+Math.random()*2)+'s';
 
     document.body.appendChild(heart);
 
@@ -268,10 +250,10 @@ function endGame(){
     clearInterval(game);
 
     document
-    .querySelectorAll(".heart")
+    .querySelectorAll('.heart')
     .forEach(h=>h.remove());
 
-    messageBox.style.display="block";
+    messageBox.style.display='block';
 
     makeConfetti();
 }
@@ -280,31 +262,49 @@ function makeConfetti(){
 
     for(let i=0;i<80;i++){
 
-        const c=document.createElement("div");
+        const c=document.createElement('div');
 
-        c.classList.add("confetti");
-
-        c.innerHTML="❤️";
+        c.classList.add('confetti');
+        c.innerHTML='💖';
 
         c.style.left=
-        Math.random()*window.innerWidth+"px";
+        Math.random()*window.innerWidth+'px';
 
         c.style.animationDuration=
-        (2+Math.random()*3)+"s";
+        (2+Math.random()*3)+'s';
 
         document.body.appendChild(c);
     }
 }
 
 document
-.getElementById("loveBtn")
-.addEventListener("click",()=>{
+.getElementById('loveBtn')
+.addEventListener('click',()=>{
+
+    for(let i=0;i<150;i++){
+
+        const c=document.createElement('div');
+
+        c.classList.add('confetti');
+        c.innerHTML='❤️';
+
+        c.style.left=
+        Math.random()*window.innerWidth+'px';
+
+        c.style.animationDuration=
+        (2+Math.random()*2)+'s';
+
+        document.body.appendChild(c);
+    }
+});
+
+document
+.getElementById('musicBtn')
+.addEventListener('click',()=>{
 
     document
-    .getElementById("finalLove")
-    .style.display="block";
-
-    makeConfetti();
+    .getElementById('music')
+    .play();
 });
 
 </script>
