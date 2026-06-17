@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Catch My Love ❤️</title>
+
+<style>
+
+body{
+    margin:0;
+    overflow:hidden;
+    background:linear-gradient(135deg,#ff8db5,#ff5c9a);
+    font-family:Arial;
+    text-align:center;
+    color:white;
+}
+
+h1{
+    margin-top:20px;
+}
+
+#score{
+    font-size:24px;
+}
+
+#note{
+    height:35px;
+    margin-top:10px;
+    font-size:18px;
+}
+
+#player{
+    position:absolute;
+    bottom:30px;
+    left:45%;
+    font-size:55px;
+}
+
+.heart{
+    position:absolute;
+    top:-50px;
+    font-size:40px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+    }
+}
+
+#messageBox{
+    display:none;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:85%;
+    max-height:85vh;
+    overflow:auto;
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(12px);
+    padding:25px;
+    border-radius:25px;
+}
+
+.memoryPhoto{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid white;
+    margin-top:20px;
+    box-shadow:0 0 25px rgba(255,255,255,0.5);
+    animation:float 3s infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+    100%{transform:translateY(0);}
+}
+
+.photoCaption{
+    font-size:18px;
+    margin-bottom:20px;
+}
+
+#loveBtn{
+    padding:15px 25px;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:#ff4d8d;
+    font-size:18px;
+    margin-top:20px;
+}
+
+#finalLove{
+    display:none;
+    margin-top:25px;
+    font-size:26px;
+    font-weight:bold;
+}
+
+.confetti{
+    position:absolute;
+    font-size:28px;
+    animation:confetti 4s linear forwards;
+}
+
+@keyframes confetti{
+    from{
+        transform:translateY(-100px);
+        opacity:1;
+    }
+    to{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>💖 Catch My Love 💖</h1>
+
+<div id="score">
+Hearts: 0 / 15
+</div>
+
+<div id="note"></div>
+
+<div id="player">
+🧸
+</div>
+
+<div id="messageBox">
+
+<img src="saryu_child.jpg" class="memoryPhoto">
+
+<div class="photoCaption">
+🥺 Little Saryu
+</div>
+
+<img src="saryu_now.jpg" class="memoryPhoto">
+
+<div class="photoCaption">
+❤️ Still the same adorable chaos
+</div>
+
+<p>
+I know today hasn't been the easiest.
+
+But I need you to remember something.
+
+You mean so much to me.
+
+You make my days brighter,
+my worries lighter,
+and my life infinitely happier.
+
+No matter what happens,
+I'm here,
+I'm staying,
+and I'm going to keep choosing you.
+
+Always. ❤️
+</p>
+
+<button id="loveBtn">
+I Love You Too ❤️
+</button>
+
+<div id="finalLove">
+✨ Thank you for being my safe place. ✨
+<br><br>
+❤️ I love you, Saryu ❤️
+</div>
+
+</div>
+
+<script>
+
+const notes=[
+"You're my favorite person ❤️",
+"I'm proud of you 💖",
+"You are deeply loved ❤️",
+"You make my world brighter ✨",
+"I'm always on your team 🥰",
+"You matter so much to me 💕"
+];
+
+const player=document.getElementById("player");
+const score=document.getElementById("score");
+const note=document.getElementById("note");
+const messageBox=document.getElementById("messageBox");
+
+let count=0;
+
+document.addEventListener("mousemove",e=>{
+    player.style.left=e.clientX+"px";
+});
+
+document.addEventListener("touchmove",e=>{
+    player.style.left=e.touches[0].clientX+"px";
+});
+
+function createHeart(){
+
+    const heart=document.createElement("div");
+
+    heart.classList.add("heart");
+    heart.innerHTML="💖";
+
+    heart.style.left=
+        Math.random()*window.innerWidth+"px";
+
+    heart.style.animationDuration=
+        (2+Math.random()*2)+"s";
+
+    document.body.appendChild(heart);
+
+    const check=setInterval(()=>{
+
+        const h=heart.getBoundingClientRect();
+        const p=player.getBoundingClientRect();
+
+        if(
+            h.bottom>=p.top &&
+            h.left<p.right &&
+            h.right>p.left
+        ){
+
+            count++;
+
+            score.innerHTML=
+            `Hearts: ${count} / 15`;
+
+            note.innerHTML=
+            notes[Math.floor(Math.random()*notes.length)];
+
+            heart.remove();
+            clearInterval(check);
+
+            if(count>=15){
+                endGame();
+            }
+        }
+
+        if(h.top>window.innerHeight){
+            heart.remove();
+            clearInterval(check);
+        }
+
+    },50);
+}
+
+const game=
+setInterval(createHeart,700);
+
+function endGame(){
+
+    clearInterval(game);
+
+    document
+    .querySelectorAll(".heart")
+    .forEach(h=>h.remove());
+
+    messageBox.style.display="block";
+
+    makeConfetti();
+}
+
+function makeConfetti(){
+
+    for(let i=0;i<80;i++){
+
+        const c=document.createElement("div");
+
+        c.classList.add("confetti");
+
+        c.innerHTML="❤️";
+
+        c.style.left=
+        Math.random()*window.innerWidth+"px";
+
+        c.style.animationDuration=
+        (2+Math.random()*3)+"s";
+
+        document.body.appendChild(c);
+    }
+}
+
+document
+.getElementById("loveBtn")
+.addEventListener("click",()=>{
+
+    document
+    .getElementById("finalLove")
+    .style.display="block";
+
+    makeConfetti();
+});
+
+</script>
+
+</body>
+</html>
